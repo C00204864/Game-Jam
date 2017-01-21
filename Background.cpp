@@ -14,14 +14,14 @@ Background::Background()
 			std::cout << "GAME:: background texture [Super_Nova] not loaded" << std::endl;
 		}
 	}
-	else if(time < 15)	// Evening day texture
+	else if(time < 18)	// Evening day texture
 	{
 		if (!m_backgroundTexture.loadFromFile("Resources/Backgrounds/Space_Fire.jpg"))
 		{
 			std::cout << "GAME:: background texture [Space_Fire] not loaded" << std::endl;
 		}
 	}
-	else if (time < 20)	// Night time texture 
+	else if (time < 24)	// Night time texture 
 	{
 		if (!m_backgroundTexture.loadFromFile("Resources/Backgrounds/BlackHole.jpg"))
 		{

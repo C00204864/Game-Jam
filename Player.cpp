@@ -1,5 +1,7 @@
 #include "Player.h"
 
+#define GRAVITATIONAL_CONSTANT 200000.0
+
 //Player Default Constructor
 Player::Player() :
 	m_position(),
@@ -18,9 +20,19 @@ Player::Player(sf::Vector2f positionIn, sf::Vector2f velocityIn, float rotationI
 	m_texture.loadFromFile(filePathIn);
 	m_sprite.setTexture(m_texture);
 	m_sprite.setPosition(m_position);
-	m_sprite.scale(sf::Vector2f(0.05, 0.05));
-	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.f, m_sprite.getLocalBounds().height / 2.f);
+	m_sprite.scale(sf::Vector2f(0.25f, 0.25f));
+	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
 	playerState = Play;
+
+	if (!m_exhaustTexture.loadFromFile("Resources/Player/SpaceShipExhaust.png"))
+	{
+		std::cout << "PLAYER:: Exhaust image not loaded" << std::endl;
+	}
+
+	m_exhaustSprite.setTexture(m_exhaustTexture);
+	m_exhaustSprite.setPosition(m_position);
+	m_exhaustSprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
+	m_exhaustSprite.setScale(sf::Vector2f(0.25f, 0.25f));
 }
 
 void Player::update(double timeSinceLastUpdate)
@@ -45,12 +57,23 @@ void Player::update(double timeSinceLastUpdate)
 			thrustVector.x = std::cos(m_rotation * DEG_TO_RAD) * THRUST_PER_SECOND;
 			thrustVector.y = std::sin(m_rotation * DEG_TO_RAD) * THRUST_PER_SECOND;
 			m_velocity += thrustVector * secondsSinceLastUpdate;
-			m_fuel -= 20 * secondsSinceLastUpdate;
+			//m_fuel -= 20 * secondsSinceLastUpdate;
+			renderExhaust = true;
 		}
+		else
+			renderExhaust = false;
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+		{
+			reset();
+		}
+
 		m_velocity += m_acceleration * secondsSinceLastUpdate; // v = u + at
 		m_position += m_velocity * secondsSinceLastUpdate + m_acceleration * 0.5f * secondsSinceLastUpdate; //s = ut + 0.5at²
 		m_sprite.setPosition(m_position);
 		m_sprite.setRotation(m_rotation);
+		m_exhaustSprite.setPosition(m_position);
+		m_exhaustSprite.setRotation(m_rotation);
 
 		m_fuelUI.update(m_fuel);
 
@@ -65,6 +88,8 @@ void Player::render(sf::RenderWindow &window)
 {
 	window.draw(m_sprite);
 	m_fuelUI.render(window);
+	if(renderExhaust)
+		window.draw(m_exhaustSprite);
 }
 
 sf::Sprite Player::getSprite()
@@ -72,14 +97,15 @@ sf::Sprite Player::getSprite()
 	return m_sprite;
 }
 
-void Player::checkGravity()
+void Player::checkGravity(sf::Vector2f planetPosition, float mass)
 {
-	//sf::Vector2f planetPos = planetIn.getPosition();
-	//float planetMass = planetIn.get
-	//float distance = getDistance(m_position, planetPos)
-	//float accelerationMagnitude = (GRAVITATIONAL_CONSTANT * planetMass) / distance;
-	//sf::Vector2 forceAdded = ((planetPos - m_position) / distance) * accelerationMagnitude;
-	//m_acceleration += forceAdded;
+	//m_acceleration = sf::Vector2f();
+	sf::Vector2f planetPos = planetPosition;
+	float planetMass = mass;
+	float distance = getDistance(m_position, planetPos);
+	float accelerationMagnitude = (GRAVITATIONAL_CONSTANT * planetMass) / (distance * distance);
+	sf::Vector2f forceAdded = ((planetPos - m_position) / distance) * accelerationMagnitude;
+	m_acceleration += forceAdded;
 	
 		//For convenience space ship has a mass of ONE meaning that in F = MA --> F = A
 		//Gonna drop some maths on yo ass
@@ -125,7 +151,7 @@ float Player::getFuel()
 
 void Player::reset()
 {
-	m_position = sf::Vector2f(0, 0);
+	m_position = sf::Vector2f(400.0f, 400.0f);
 	m_velocity = sf::Vector2f(0, 0);
 	m_acceleration = sf::Vector2f(0, 0);
 	m_rotation = 0;

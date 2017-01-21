@@ -16,7 +16,7 @@ public:
 	void update(double dt);
 	void render(sf::RenderWindow &window);
 	sf::Sprite getSprite();
-	void checkGravity(); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!include planet class and pass in a reference to planet or optionally an array
+	void checkGravity(sf::Vector2f planetPosition, float planetMass); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!include planet class and pass in a reference to planet or optionally an array
 	float getDistance(sf::Vector2f, sf::Vector2f);
 	void increaseRotation();
 	void decreaseRotation();
@@ -30,15 +30,17 @@ private:
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_acceleration;
 	sf::Vector2f thrustVector;
+	bool renderExhaust;
 	float m_rotation;
 	float m_fuel = 100.0f;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
+	sf::Texture m_exhaustTexture;
+	sf::Sprite m_exhaustSprite;
 	const float ROTATION_MAGNITUDE = 5.0f;
 	const float LIFTOFF_VELOCITY_MAGNITUDE = 100.f;
-	const float THRUST_PER_SECOND = 100.0f;
+	const float THRUST_PER_SECOND = 1000.0f;
 	const float DEG_TO_RAD = (3.14f / 180.f);
-
 	FuelUI m_fuelUI;
 };
 
