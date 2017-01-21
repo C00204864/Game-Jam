@@ -44,6 +44,7 @@ private:
 	const float DEG_TO_RAD = (3.14f / 180.f);
 	FuelUI m_fuelUI;
 	XboxController xboxController;
+	bool playerAlive;
 };
 
 #endif

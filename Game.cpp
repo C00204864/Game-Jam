@@ -3,13 +3,9 @@
 #define MS_PER_UPDATE 10.0
 
 Game::Game()
-<<<<<<< HEAD
-	: m_window(sf::VideoMode(3840, 2160, 32), "Global Game Jam", sf::Style::Fullscreen),
-		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 90, "Resources/sprite.png", m_window.getSize())
-=======
 	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
 		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
->>>>>>> f21abafabd34026241962059ccac502f87a44858
+	, m_splashScreen("Resources/SplashScreen/SplashScreen.png", m_window.getSize().x, m_window.getSize().y)
 {
 	if (!m_planetTexture.loadFromFile("Resources/Planets/Planet_11.png"))
 	{
@@ -74,6 +70,18 @@ void Game::update(double dt)
 {
 	switch (currentGameState)
 	{
+		case GameState::SplashScreen:
+		{
+			m_splashScreen.update();
+
+			if (m_splashScreen.animationComplete())
+			{
+				currentGameState = GameState::MainMenu;
+			}
+
+			break;
+		}
+
 		case GameState::MainMenu:
 		{
 			m_menu.update();
@@ -81,6 +89,11 @@ void Game::update(double dt)
 			{
 				currentGameState = GameState::Game;
 			}
+			else if(m_menu.quitePressed)
+			{
+				m_window.close();
+			}
+			break;
 		}
 		case GameState::Game:
 		{
@@ -89,6 +102,11 @@ void Game::update(double dt)
 			for (std::vector<Planet>::iterator it = m_planets.begin(); it != m_planets.end(); it++)
 			{
 				m_player.checkGravity(it->GetPosition(), it->GetMass());
+			}
+
+			for (std::vector<Planet>::iterator it = m_planets.begin(); it != m_planets.end(); it++)
+			{
+				// Do collision here
 			}
 
 			break;
@@ -101,10 +119,16 @@ void Game::update(double dt)
 
 void Game::render()
 {
-	m_window.clear(sf::Color(100, 0, 0, 0));
+	m_window.clear(sf::Color(0, 0, 0, 0));
 
 	switch (currentGameState)
 	{
+		case GameState::SplashScreen:
+		{
+			m_splashScreen.render(m_window);
+			break;
+		}
+
 		case GameState::MainMenu:
 		{
 			m_menu.render(m_window);

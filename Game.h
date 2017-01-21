@@ -6,6 +6,7 @@
 #include "Planet.h"
 #include "Player.h"
 #include "MainMenu.h"
+#include "Splash.h"
 
 class Game
 {
@@ -24,11 +25,12 @@ protected:
 
 	enum class GameState
 	{
+		SplashScreen,
 		MainMenu,
 		Game,
 		EndScreen
 	};
-	GameState currentGameState = GameState::MainMenu;
+	GameState currentGameState = GameState::SplashScreen;
 
 private:
 	sf::Texture m_backgroundTexture;
@@ -38,6 +40,7 @@ private:
 	std::vector<Planet> m_planets;
 	Player m_player;
 
+	Splash m_splashScreen;
 	MainMenu m_menu;
 };
 
