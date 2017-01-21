@@ -5,6 +5,7 @@
 #include "Background.h"
 #include "Planet.h"
 #include "Player.h"
+#include "MainMenu.h"
 
 class Game
 {
@@ -12,6 +13,7 @@ public:
 	Game();
 	void run();
 
+	
 protected:
 	void update(double dt);
 	void render();
@@ -26,7 +28,7 @@ protected:
 		Game,
 		EndScreen
 	};
-	GameState currentGameState = GameState::Game;
+	GameState currentGameState = GameState::MainMenu;
 
 private:
 	sf::Texture m_backgroundTexture;
@@ -35,6 +37,8 @@ private:
 	sf::Texture m_planetTexture;
 	std::vector<Planet> m_planets;
 	Player m_player;
+
+	MainMenu m_menu;
 };
 
 #endif

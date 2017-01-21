@@ -3,7 +3,7 @@
 #define MS_PER_UPDATE 10.0
 
 Game::Game()
-	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
+	: m_window(sf::VideoMode(3840, 2160, 32), "Global Game Jam", sf::Style::Fullscreen),
 		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 90, "Resources/sprite.png", m_window.getSize())
 {
 	if (!m_planetTexture.loadFromFile("Resources/planet.png"))
@@ -70,6 +70,14 @@ void Game::update(double dt)
 {
 	switch (currentGameState)
 	{
+		case GameState::MainMenu:
+		{
+			m_menu.update();
+			if (m_menu.playPressed)
+			{
+				currentGameState = GameState::Game;
+			}
+		}
 		case GameState::Game:
 		{
 			m_player.update(dt);
@@ -88,6 +96,11 @@ void Game::render()
 
 	switch (currentGameState)
 	{
+		case GameState::MainMenu:
+		{
+			m_menu.render(m_window);
+			break;
+		}
 		case GameState::Game:
 		{
 			m_background.render(m_window);
