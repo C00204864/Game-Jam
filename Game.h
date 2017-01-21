@@ -6,7 +6,11 @@
 #include "Planet.h"
 #include "Player.h"
 #include "MainMenu.h"
+<<<<<<< HEAD
+#include "GameOver.h"
+=======
 #include "Splash.h"
+>>>>>>> 6fae90d91d56a7d87ff1d21669f4e077abd82079
 
 class Game
 {
@@ -30,7 +34,15 @@ protected:
 		Game,
 		EndScreen
 	};
+<<<<<<< HEAD
 	GameState currentGameState = GameState::Game;
+=======
+<<<<<<< HEAD
+	GameState currentGameState = GameState::EndScreen;
+=======
+	GameState currentGameState = GameState::SplashScreen;
+>>>>>>> 6fae90d91d56a7d87ff1d21669f4e077abd82079
+>>>>>>> 8fcecb1bcd273e03b167805e19068fa64b3a3c4c
 
 private:
 	sf::Texture m_backgroundTexture;
@@ -39,6 +51,7 @@ private:
 	sf::Texture m_planetTexture;
 	std::vector<Planet> m_planets;
 	Player m_player;
+	GameOver m_gameOver;
 
 	Splash m_splashScreen;
 	MainMenu m_menu;
