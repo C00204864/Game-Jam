@@ -153,6 +153,7 @@
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="FuelUI.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Planet.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Background.h" />
     <ClInclude Include="FuelUI.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Player.h" />
