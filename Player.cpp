@@ -7,7 +7,8 @@ Player::Player() :
 	m_position(),
 	m_velocity(),
 	m_rotation(0),
-	m_fuelUI(sf::Vector2f(100.0f, 100.0f))
+	m_fuelUI(sf::Vector2f(100.0f, 100.0f)),
+	xboxController(CONTROLLER_ONE)
 {}
 
 //Player Overloaded constructor !---(THE ONE YOU SHOULD USE)---!
@@ -15,7 +16,8 @@ Player::Player(sf::Vector2f positionIn, sf::Vector2f velocityIn, float rotationI
 	m_position(positionIn),
 	m_velocity(velocityIn),
 	m_rotation(rotationIn),
-	m_fuelUI(sf::Vector2f(100.0f, windowSize.y - 400.0f))
+	m_fuelUI(sf::Vector2f(100.0f, windowSize.y - 400.0f)),
+	xboxController(CONTROLLER_ONE)
 {
 	m_texture.loadFromFile(filePathIn);
 	m_sprite.setTexture(m_texture);
@@ -38,11 +40,11 @@ Player::Player(sf::Vector2f positionIn, sf::Vector2f velocityIn, float rotationI
 void Player::update(double timeSinceLastUpdate)
 {
 	float secondsSinceLastUpdate = timeSinceLastUpdate / 1000.0;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || xboxController.getLeftStick().x < -20.0f)
 	{
 		decreaseRotation();
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || xboxController.getLeftStick().x > 20.0f)
 	{
 		increaseRotation();
 	}
@@ -52,10 +54,10 @@ void Player::update(double timeSinceLastUpdate)
 		
 		break;
 	case Play:
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && m_fuel > 0)
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || xboxController.isButtonHeldDown(XBOX360_A)) && m_fuel > 0)
 		{
 			thrustVector.x = std::cos(m_rotation * DEG_TO_RAD) * THRUST_PER_SECOND;
-			thrustVector.y = std::sin(m_rotation * DEG_TO_RAD) * THRUST_PER_SECOND;
+			thrustVector.y = std::sin(m_rotation * DEG_TO_RAD) * THRUST_PER_SECOND; 
 			m_velocity += thrustVector * secondsSinceLastUpdate;
 			//m_fuel -= 20 * secondsSinceLastUpdate;
 			renderExhaust = true;
@@ -63,7 +65,7 @@ void Player::update(double timeSinceLastUpdate)
 		else
 			renderExhaust = false;
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) || xboxController.isButtonPressed(XBOX360_START))
 		{
 			reset();
 		}
