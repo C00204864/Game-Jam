@@ -3,13 +3,13 @@
 #define MS_PER_UPDATE 10.0
 
 Game::Game()
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	: m_window(sf::VideoMode(3840, 2160, 32), "Global Game Jam", sf::Style::Fullscreen),
 		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 90, "Resources/sprite.png", m_window.getSize())
-=======
-	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
-		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
->>>>>>> f21abafabd34026241962059ccac502f87a44858
+//=======
+//	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
+//		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
+//>>>>>>> f21abafabd34026241962059ccac502f87a44858
 {
 	if (!m_planetTexture.loadFromFile("Resources/Planets/Planet_11.png"))
 	{
@@ -68,6 +68,17 @@ void Game::processGameEvents(sf::Event& event)
 	{
 		m_window.close();
 	}
+
+	switch (currentGameState)
+	{
+		case GameState::EndScreen:
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+			{
+				m_gameOver.screenFadeIn();
+			}
+		}
+	}
 }
 
 void Game::update(double dt)
@@ -91,6 +102,15 @@ void Game::update(double dt)
 				m_player.checkGravity(it->GetPosition(), it->GetMass());
 			}
 
+			break;
+		}
+		case GameState::EndScreen:
+		{
+			if (m_gameOver.quitGame())
+			{
+				m_window.close();
+			}
+			m_gameOver.update();
 			break;
 		}
 
@@ -121,6 +141,11 @@ void Game::render()
 
 			m_player.render(m_window);
 		
+			break;
+		}
+		case GameState::EndScreen:
+		{
+			m_gameOver.render(m_window);
 			break;
 		}
 

@@ -6,6 +6,7 @@
 #include "Planet.h"
 #include "Player.h"
 #include "MainMenu.h"
+#include "GameOver.h"
 
 class Game
 {
@@ -28,7 +29,7 @@ protected:
 		Game,
 		EndScreen
 	};
-	GameState currentGameState = GameState::MainMenu;
+	GameState currentGameState = GameState::EndScreen;
 
 private:
 	sf::Texture m_backgroundTexture;
@@ -37,6 +38,7 @@ private:
 	sf::Texture m_planetTexture;
 	std::vector<Planet> m_planets;
 	Player m_player;
+	GameOver m_gameOver;
 
 	MainMenu m_menu;
 };
