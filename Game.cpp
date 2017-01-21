@@ -4,7 +4,7 @@
 
 Game::Game()
 	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
-		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 90, "Resources/sprite.png")
+		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 90, "Resources/sprite.png", m_window.getSize())
 {
 	if (!m_planetTexture.loadFromFile("Resources/planet.png"))
 	{

@@ -1,17 +1,19 @@
 #include "Player.h"
 
 //Player Default Constructor
-Player::Player():
+Player::Player() :
 	m_position(),
 	m_velocity(),
-	m_rotation(0)
+	m_rotation(0),
+	m_fuelUI(sf::Vector2f(100.0f, 100.0f))
 {}
 
 //Player Overloaded constructor !---(THE ONE YOU SHOULD USE)---!
-Player::Player(sf::Vector2f positionIn, sf::Vector2f velocityIn, float rotationIn, std::string filePathIn): 
+Player::Player(sf::Vector2f positionIn, sf::Vector2f velocityIn, float rotationIn, std::string filePathIn, sf::Vector2u windowSize): 
 	m_position(positionIn),
 	m_velocity(velocityIn),
-	m_rotation(rotationIn)
+	m_rotation(rotationIn),
+	m_fuelUI(sf::Vector2f(100.0f, windowSize.y - 400.0f))
 {
 	m_texture.loadFromFile(filePathIn);
 	m_sprite.setTexture(m_texture);
@@ -43,21 +45,26 @@ void Player::update(double timeSinceLastUpdate)
 			thrustVector.x = std::cos(m_rotation * DEG_TO_RAD) * THRUST_PER_SECOND;
 			thrustVector.y = std::sin(m_rotation * DEG_TO_RAD) * THRUST_PER_SECOND;
 			m_velocity += thrustVector * secondsSinceLastUpdate;
-			//m_fuel -= 20 * secondsSinceLastUpdate;
+			m_fuel -= 20 * secondsSinceLastUpdate;
 		}
 		m_velocity += m_acceleration * secondsSinceLastUpdate; // v = u + at
 		m_position += m_velocity * secondsSinceLastUpdate + m_acceleration * 0.5f * secondsSinceLastUpdate; //s = ut + 0.5at²
 		m_sprite.setPosition(m_position);
 		m_sprite.setRotation(m_rotation);
+
+		m_fuelUI.update(m_fuel);
+
 		break;
 	}
-	std::cout << m_fuel << std::endl;
+
+	//std::cout << m_fuel << std::endl;
 
 }
 
 void Player::render(sf::RenderWindow &window)
 {
 	window.draw(m_sprite);
+	m_fuelUI.render(window);
 }
 
 sf::Sprite Player::getSprite()

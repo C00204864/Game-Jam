@@ -1,17 +1,18 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <SFML\Graphics.hpp>
 #include <string>
 #include <cmath>
 #include <iostream>
+#include <SFML\Graphics.hpp>
+#include "FuelUI.h"
 
 enum PlayerState {Start, Play, None};
 
 class Player {
 public:
 	Player();
-	Player(sf::Vector2f, sf::Vector2f, float, std::string);
+	Player(sf::Vector2f, sf::Vector2f, float, std::string, sf::Vector2u windowSize);
 	void update(double dt);
 	void render(sf::RenderWindow &window);
 	sf::Sprite getSprite();
@@ -37,6 +38,8 @@ private:
 	const float LIFTOFF_VELOCITY_MAGNITUDE = 100.f;
 	const float THRUST_PER_SECOND = 100.0f;
 	const float DEG_TO_RAD = (3.14f / 180.f);
+
+	FuelUI m_fuelUI;
 };
 
 #endif

@@ -12,7 +12,7 @@ FuelUI::FuelUI()
 FuelUI::FuelUI(sf::Vector2f pos)
 {
 	m_pos = pos;
-	loadTexture("Resources/Fuel Gauge.png");
+	loadTexture("Resources/Fuel_Gauge.png");
 }
 
 ///Destructor for the fuel ui object
@@ -82,8 +82,5 @@ void FuelUI::initialiseSprite()
 	m_bar.setFillColor(sf::Color::Green);
 	m_bar.setOutlineColor(sf::Color::Black);
 	m_bar.setOutlineThickness(2.0f);
-	m_bar.rotate(90);
-
-
+	m_bar.rotate(180);
 }
-
