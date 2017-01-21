@@ -2,6 +2,8 @@
 #define MAINMENU_H
 
 #include <SFML\Graphics.hpp>
+#include "XboxController.h"
+#include "FuelUI.h"
 
 using namespace std;
 
@@ -15,6 +17,8 @@ public:
 	void render(sf::RenderWindow & m_window);
 
 	bool playPressed;
+	bool quitePressed;
+
 protected:
 	const int numButtons = 3;
 	sf::Texture m_backgroundTexture;
@@ -39,6 +43,8 @@ protected:
 	int currentHighlighted = 0;
 
 	int timer = 0;
+
+	XboxController xboxController;
 
 };
 

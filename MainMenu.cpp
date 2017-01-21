@@ -1,9 +1,8 @@
-#include "FuelUI.h"
 #include "MainMenu.h"
 
 MainMenu::MainMenu()
+	: xboxController(CONTROLLER_ONE)
 {
-
 	if (!m_backgroundTexture.loadFromFile("Resources/Backgrounds/BlackHole.jpg"))
 	{
 		std::string s("Error loading MainMenu Texture at Resources/Backgrounds/BlackHole.jpg");
@@ -25,7 +24,7 @@ MainMenu::MainMenu()
 		std::string s("Error loading MainMenu Button Texture at Resources/Buttons/Quit_Button.png");
 		throw std::exception(s.c_str());
 	}
-	
+
 	m_backgroudSprite.setTexture(m_backgroundTexture);
 
 	for (int i = 0; i < numButtons; i++)
@@ -47,12 +46,36 @@ void MainMenu::update()
 	mouse = currentMouse.getPosition();
 	for (int i = 0; i < numButtons; i++)
 	{
+		if (currentHighlighted == 0)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)
+				|| xboxController.isButtonPressed(XBOX360_A))
+			{
+				playPressed = true;
+			}
+		}
+		else if (currentHighlighted == 1)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)
+				|| xboxController.isButtonPressed(XBOX360_A))
+			{
+				// Opitions Selected
+			}
+		}
+		else if (currentHighlighted == 2)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)
+				|| xboxController.isButtonPressed(XBOX360_A))
+			{
+				// Exit selcted
+			}
+		}
+
 		if ((mouse.x >= m_buttonPositions[i].x && mouse.x <= m_buttonPositions[i].x + m_buttonWidth) &&
 			(mouse.y >= m_buttonPositions[i].y && mouse.y <= m_buttonPositions[i].y + m_buttonHeight))
 		{
 			isHighlighted[i] = true;
-			if (currentMouse.isButtonPressed(sf::Mouse::Left) &&
-				!previousMouse)
+			if ((currentMouse.isButtonPressed(sf::Mouse::Left) && !previousMouse))
 			{
 				if (i == 0)
 				{
@@ -100,7 +123,7 @@ void MainMenu::update()
 		m_keyPressedDown = true;
 	}
 
-	if (timer > 30)
+	if (timer > 20)
 	{
 		m_keyPressedDown = false;
 		m_keyPressedUp = false;

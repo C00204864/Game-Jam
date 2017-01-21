@@ -14,7 +14,7 @@ Background::Background()
 			std::cout << "GAME:: background texture [Super_Nova] not loaded" << std::endl;
 		}
 	}
-	else if(time < 18)	// Evening day texture
+	else if(time < 22)	// Evening day texture
 	{
 		if (!m_backgroundTexture.loadFromFile("Resources/Backgrounds/Space_Fire.jpg"))
 		{

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <SFML\Graphics.hpp>
 #include "FuelUI.h"
+#include "XboxController.h"
 
 enum PlayerState {Start, Play, None};
 
@@ -42,6 +43,8 @@ private:
 	const float THRUST_PER_SECOND = 1000.0f;
 	const float DEG_TO_RAD = (3.14f / 180.f);
 	FuelUI m_fuelUI;
+	XboxController xboxController;
+	bool playerAlive;
 };
 
 #endif

@@ -98,6 +98,28 @@ bool XboxController::isButtonPressed(unsigned int button)
 	return buttonPressed;
 }
 
+bool XboxController::isButtonHeldDown(unsigned int button)
+{
+	bool buttonPressed = false;
+
+	// Check if the input parameter is a face button, shoulder button, back/start button or joystick button
+	if (button >= XBOX360_A && button <= XBOX360_RIGHT_JOY_BUTTON)
+	{
+		buttonPressed = m_controller.isButtonPressed(m_controllerIndex, button);
+
+		if (buttonPressed)
+		{
+			m_currentState.buttons[button] = buttonPressed;
+		}
+		else
+		{
+			m_currentState.buttons[button] = false;
+		}
+	}
+
+	return buttonPressed;
+}
+
 /// <summary>
 /// Gets the coordinates of the x and y axis on the left joystick in the range of [-100, 100]. 
 /// The current state of left joystick is updated
