@@ -30,7 +30,7 @@ protected:
 		Game,
 		EndScreen
 	};
-	GameState currentGameState = GameState::SplashScreen;
+	GameState currentGameState = GameState::Game;
 
 private:
 	sf::Texture m_backgroundTexture;

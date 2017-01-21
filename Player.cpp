@@ -59,7 +59,7 @@ void Player::update(double timeSinceLastUpdate)
 			thrustVector.x = std::cos(m_rotation * DEG_TO_RAD) * THRUST_PER_SECOND;
 			thrustVector.y = std::sin(m_rotation * DEG_TO_RAD) * THRUST_PER_SECOND; 
 			m_velocity += thrustVector * secondsSinceLastUpdate;
-			//m_fuel -= 20 * secondsSinceLastUpdate;
+			m_fuel -= 20 * secondsSinceLastUpdate;
 			renderExhaust = true;
 		}
 		else

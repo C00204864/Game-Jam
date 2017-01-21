@@ -67,7 +67,7 @@ void MainMenu::update()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)
 				|| xboxController.isButtonPressed(XBOX360_A))
 			{
-				// Exit selcted
+				quitePressed = true;
 			}
 		}
 
