@@ -33,7 +33,11 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="XboxController.cpp">
+=======
+    <ClCompile Include="MainMenu.cpp">
+>>>>>>> f18c4ea77f821b36733f204c5ad7d163c2c1214f
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +57,11 @@
     <ClInclude Include="FuelUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="XboxController.h">
+=======
+    <ClInclude Include="MainMenu.h">
+>>>>>>> f18c4ea77f821b36733f204c5ad7d163c2c1214f
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
