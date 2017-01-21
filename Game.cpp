@@ -3,23 +3,27 @@
 #define MS_PER_UPDATE 10.0
 
 Game::Game()
+<<<<<<< HEAD
 	: m_window(sf::VideoMode(3840, 2160, 32), "Global Game Jam", sf::Style::Fullscreen),
 		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 90, "Resources/sprite.png", m_window.getSize())
+=======
+	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
+		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
+>>>>>>> f21abafabd34026241962059ccac502f87a44858
 {
-	if (!m_planetTexture.loadFromFile("Resources/planet.png"))
+	if (!m_planetTexture.loadFromFile("Resources/Planets/Planet_11.png"))
 	{
 		std::cout << "GAME:: Planet texture not loaded" << std::endl;
 	}
 
-	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(50.0f, 50.0f), 3.0f));
-	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(100.0f, 900.0f), 10.0f));
-	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(600.0f, 800.0f), 2.f));
-	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(900.0f, 50.0f), 1.0f));
-	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(1000.0f, 100.0f), 7.0f));
-	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(800.0f, 700.0f), 4.0f));
-	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(1400.0f, 400.0f), 5.0f));
-	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(2500.0f, 800.0f), 4.0f));
-	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(3400.0f, 800.0f), 8.0f));
+	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(100.0f, 900.0f), 0.90f));
+	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(600.0f, 1800.0f), 2.0f));
+	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(900.0f, 50.0f), 0.5f));
+	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(1000.0f, 140.0f), 2.0f));
+	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(1500.0f, 1700.0f), 1.0f));
+	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(1400.0f, 400.0f), 0.9f));
+	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(2500.0f, 800.0f), 1.2f));
+	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(3400.0f, 800.0f), 2.5f));
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(3200.0f, 1500.0f), 1.0f));
 }
 
@@ -81,6 +85,11 @@ void Game::update(double dt)
 		case GameState::Game:
 		{
 			m_player.update(dt);
+
+			for (std::vector<Planet>::iterator it = m_planets.begin(); it != m_planets.end(); it++)
+			{
+				m_player.checkGravity(it->GetPosition(), it->GetMass());
+			}
 
 			break;
 		}

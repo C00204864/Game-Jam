@@ -12,7 +12,7 @@ FuelUI::FuelUI()
 FuelUI::FuelUI(sf::Vector2f pos)
 {
 	m_pos = pos;
-	loadTexture("Resources/Fuel_Gauge.png");
+	loadTexture("Resources/UI/Fuel_Gauge.png");
 }
 
 ///Destructor for the fuel ui object

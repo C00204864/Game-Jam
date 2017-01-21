@@ -14,12 +14,14 @@ public:
 
 	sf::Vector2f GetPosition();
 	float GetRadius();
+	float GetMass();
 
 private:
 	sf::Texture &m_planetTexture;
 	sf::Sprite m_planetSprite;
 	sf::Vector2f m_position;
 	float m_radius;
+	const float RADIUS_TO_MASS = 0.5f;
 };
 
 #endif
