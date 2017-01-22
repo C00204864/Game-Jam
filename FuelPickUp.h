@@ -6,12 +6,15 @@
 class FuelPickUp
 {
 public:
-	FuelPickUp(sf::Texture &texture, sf::Vector2f &position);
+	FuelPickUp(sf::Texture &texture, sf::Vector2f &position);  
 
 	void update(sf::Vector2f &position);
 	void render(sf::RenderWindow &window);
 	bool isCollided();
 	sf::Vector2f fuelPosition;
+	float GetSpriteWidth();
+	bool m_pickedUp;
+	void reset();
 
 private:
 	sf::Texture &fuelTexture;

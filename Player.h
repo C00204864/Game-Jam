@@ -18,7 +18,7 @@ public:
 	void update(double dt);
 	void render(sf::RenderWindow &window);
 	sf::Sprite getSprite();
-	void checkGravity(sf::Vector2f planetPosition, float planetMass); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!include planet class and pass in a reference to planet or optionally an array
+	void checkGravity(sf::Vector2f planetPosition, float planetMass);
 	float getDistance(sf::Vector2f, sf::Vector2f);
 	void increaseRotation();
 	void decreaseRotation();
@@ -26,7 +26,8 @@ public:
 	sf::Vector2f getPosition();
 	void reset();
 	void reset(sf::Vector2f, float);
-	void checkCollision(sf::Vector2f planetPosition, float planetRadius);
+	void checkCollisionPlanet(sf::Vector2f planetPosition, float planetRadius);
+	bool checkCollisionFuelItem(sf::Vector2f planetPosition, float planetRadius);
 	PlayerState playerState;
 	bool m_alive;
 
@@ -38,7 +39,7 @@ private:
 	float m_radiusOfImpact;
 	bool renderExhaust;
 	float m_rotation;
-	float m_fuel = 100.0f;
+	float m_fuel;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	sf::Texture m_exhaustTexture;
