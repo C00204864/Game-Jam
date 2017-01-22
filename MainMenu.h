@@ -18,6 +18,7 @@ public:
 
 	bool playPressed;
 	bool quitePressed;
+	bool optionsPressed;
 
 protected:
 	const int numButtons = 3;

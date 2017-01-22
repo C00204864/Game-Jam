@@ -49,7 +49,7 @@ void MainMenu::update()
 		if (currentHighlighted == 0)
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)
-				|| xboxController.isButtonPressed(XBOX360_A))
+				|| xboxController.isButtonPressed(XBOX360_A) && !playPressed)
 			{
 				playPressed = true;
 			}
@@ -57,15 +57,16 @@ void MainMenu::update()
 		else if (currentHighlighted == 1)
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)
-				|| xboxController.isButtonPressed(XBOX360_A))
+				|| xboxController.isButtonPressed(XBOX360_A) && !optionsPressed)
 			{
 				// Opitions Selected
+				optionsPressed = true;
 			}
 		}
 		else if (currentHighlighted == 2)
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)
-				|| xboxController.isButtonPressed(XBOX360_A))
+				|| xboxController.isButtonPressed(XBOX360_A) && !quitePressed)
 			{
 				quitePressed = true;
 			}
@@ -82,6 +83,15 @@ void MainMenu::update()
 					playPressed = true;
 					/*m_buttonSprites[i].scale(5.0f, 5.0f);*/
 				}
+				else if (i == 1)
+				{
+					optionsPressed = true;
+				}
+				else if (currentHighlighted == 2)
+				{
+					quitePressed = true;
+				}
+
 				previousMouse = true;
 			}
 			else
@@ -157,6 +167,8 @@ void MainMenu::init()
 	m_buttonWidth = m_buttonSprites[0].getTextureRect().width * m_buttonSprites[0].getScale().x;
 	m_buttonHeight = m_buttonSprites[0].getTextureRect().height * m_buttonSprites[0].getScale().y;
 	m_buttonPressed = false;
-
+	playPressed = false;
+	quitePressed = false;
+	optionsPressed = false; 
 	currentHighlighted = 0;
 }

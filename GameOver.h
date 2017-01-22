@@ -36,7 +36,6 @@ protected:
 
 	void init();
 
-	int urrentHighlighted = 0; //The current Highlighted button in the array;
 	bool isHighlighted;
 
 	float m_fadeInTimeLimit = 5;

@@ -3,19 +3,19 @@
 #define MS_PER_UPDATE 10.0
 
 Game::Game()
-<<<<<<< HEAD
 //<<<<<<< HEAD
-	: m_window(sf::VideoMode(3840, 2160, 32), "Global Game Jam", sf::Style::Fullscreen),
-		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 90, "Resources/sprite.png", m_window.getSize())
+//<<<<<<< HEAD
+//	: m_window(sf::VideoMode(3840, 2160, 32), "Global Game Jam", sf::Style::Fullscreen),
+//		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 90, "Resources/sprite.png", m_window.getSize())
 //=======
 //	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
 //		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
 //>>>>>>> f21abafabd34026241962059ccac502f87a44858
-=======
-	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
+//=======
+	: m_window(sf::VideoMode(3840, 2160, 32), "Global Game Jam", sf::Style::Fullscreen),
 		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
 	, m_splashScreen("Resources/SplashScreen/SplashScreen.png", m_window.getSize().x, m_window.getSize().y)
->>>>>>> 6fae90d91d56a7d87ff1d21669f4e077abd82079
+//>>>>>>> 6fae90d91d56a7d87ff1d21669f4e077abd82079
 {
 	if (!m_planetTexture.loadFromFile("Resources/Planets/Planet_11.png"))
 	{
@@ -105,14 +105,36 @@ void Game::update(double dt)
 
 		case GameState::MainMenu:
 		{
-			m_menu.update();
-			if (m_menu.playPressed)
+			//Changed to allow only one menu screen to be selected at once;
+			//The following code works once an instance of OptionsMenu is created
+			if (m_options.m_active == false)
 			{
-				currentGameState = GameState::Game;
+				if (m_menu.playPressed)
+				{
+					currentGameState = GameState::Game;
+				}
+				else if (m_menu.quitePressed)
+				{
+					m_window.close();
+				}
+				else if (m_menu.optionsPressed)
+				{
+					if (!m_options.m_active)
+					{
+						m_options.startAnimation();
+						m_menu.optionsPressed = false;
+					}
+					else
+					{
+						m_options.endAnimation();
+						m_menu.optionsPressed = false;
+					}
+				}
+				m_menu.update();
 			}
-			else if(m_menu.quitePressed)
+			else
 			{
-				m_window.close();
+				m_options.update();
 			}
 			break;
 		}
@@ -128,6 +150,10 @@ void Game::update(double dt)
 			for (std::vector<Planet>::iterator it = m_planets.begin(); it != m_planets.end(); it++)
 			{
 				// Do collision here
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::End))
+			{
+				currentGameState = GameState::EndScreen;
 			}
 
 			break;
@@ -162,6 +188,7 @@ void Game::render()
 		case GameState::MainMenu:
 		{
 			m_menu.render(m_window);
+			m_options.render(m_window);
 			break;
 		}
 		case GameState::Game:
