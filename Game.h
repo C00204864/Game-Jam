@@ -9,6 +9,7 @@
 #include "GameOver.h"
 #include "Splash.h"
 #include "FuelPickUp.h"
+#include "XboxController.h"
 
 class Game
 {
@@ -16,7 +17,6 @@ public:
 	Game();
 	void run();
 
-	
 protected:
 	void update(double dt);
 	void render();
@@ -49,6 +49,7 @@ private:
 
 	sf::Texture m_fuelTexture;
 	std::vector<FuelPickUp> fuelPickUpItems;
+	XboxController xboxController;
 };
 
 #endif

@@ -5,7 +5,8 @@
 Game::Game()
 	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
 		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
-	, m_splashScreen("Resources/SplashScreen/SplashScreen.png", m_window.getSize().x, m_window.getSize().y)
+	, m_splashScreen("Resources/SplashScreen/SplashScreen.png", m_window.getSize().x, m_window.getSize().y),
+	xboxController(CONTROLLER_ONE)
 {
 	if (!m_planetTexture.loadFromFile("Resources/Planets/Planet_11.png"))
 	{
@@ -17,9 +18,9 @@ Game::Game()
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(900.0f, 50.0f), 0.5f));
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(1000.0f, 140.0f), 2.0f));
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(1500.0f, 1700.0f), 1.0f));
-	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(1400.0f, 400.0f), 0.9f));
+	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(1600.0f, 800.0f), 0.9f));
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(2500.0f, 800.0f), 1.2f));
-	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(3400.0f, 800.0f), 2.5f));
+	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(3400.0f, 400.0f), 2.5f));
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(3200.0f, 1500.0f), 1.0f));
 
 
@@ -31,6 +32,9 @@ Game::Game()
 	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(1400.0f, 400.0f)));
 	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(1400.0f, 600.0f)));
 	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(900.0f, 1400.0f)));
+	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(2000.0f, 200.0f)));
+	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(2200.0f, 600.0f)));
+	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(2400.0f, 1400.0f)));
 }
 
 void Game::run()
@@ -75,9 +79,14 @@ void Game::processGameEvents(sf::Event& event)
 		m_window.close();
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) || xboxController.isButtonPressed(XBOX360_START))
 	{
 		m_player.reset();
+
+		for (std::vector<FuelPickUp>::iterator it = fuelPickUpItems.begin(); it != fuelPickUpItems.end(); it++)
+		{
+			it->m_pickedUp = false;
+		}
 	}
 
 	switch (currentGameState)
@@ -88,8 +97,6 @@ void Game::processGameEvents(sf::Event& event)
 			{
 				m_gameOver.screenFadeIn();
 			}
-
-			
 		}
 	}
 }
@@ -127,17 +134,17 @@ void Game::update(double dt)
 		{
 			m_player.update(dt);
 
-			int i = 0;
 			for (std::vector<FuelPickUp>::iterator it = fuelPickUpItems.begin(); it != fuelPickUpItems.end(); it++)
 			{
 				it->update(m_player.getPosition());
 
-				if (it->isCollided())
+				if (m_player.playerState != Dead && it->m_pickedUp == false)
 				{
-					it->fuelPosition = sf::Vector2f();
+					if (m_player.checkCollisionFuelItem(it->fuelPosition, it->GetSpriteWidth()))
+					{
+						it->m_pickedUp = true;
+					}
 				}
-
-				i++;
 			}
 
 			for (std::vector<Planet>::iterator it = m_planets.begin(); it != m_planets.end(); it++)
@@ -146,7 +153,7 @@ void Game::update(double dt)
 				
 				if (m_player.playerState != Dead)
 				{
-					m_player.checkCollision(it->GetPosition(), it->GetSpriteWidth());
+					m_player.checkCollisionPlanet(it->GetPosition(), it->GetSpriteWidth());
 				}
 			}
 
