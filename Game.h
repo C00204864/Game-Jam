@@ -9,6 +9,7 @@
 #include "GameOver.h"
 #include "Splash.h"
 #include "FuelPickUp.h"
+#include "Goal.h"
 
 class Game
 {
@@ -22,6 +23,7 @@ protected:
 	void render();
 	void processEvents();
 	void processGameEvents(sf::Event&);
+	void checkGoalCollision(Player player, Goal goal);
 
 	sf::RenderWindow m_window;
 
@@ -49,6 +51,8 @@ private:
 
 	sf::Texture m_fuelTexture;
 	std::vector<FuelPickUp> fuelPickUpItems;
+	Goal m_goal;
+	sf::Texture m_goalTexture;
 };
 
 #endif

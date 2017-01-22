@@ -3,15 +3,19 @@
 #define MS_PER_UPDATE 10.0
 
 Game::Game()
-	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
-		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
+	: m_window(sf::VideoMode(3840, 2160, 32), "Global Game Jam", sf::Style::Fullscreen),
+	m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
 	, m_splashScreen("Resources/SplashScreen/SplashScreen.png", m_window.getSize().x, m_window.getSize().y)
 {
 	if (!m_planetTexture.loadFromFile("Resources/Planets/Planet_11.png"))
 	{
 		std::cout << "GAME:: Planet texture not loaded" << std::endl;
 	}
-
+	if (!m_goalTexture.loadFromFile("Resources/Goal/goal.png"))
+	{
+		std::cout << "GAME:: Goal texture not loaded" << std::endl;
+	}
+	m_goal.init(m_goalTexture, sf::Vector2f(3000, 1500));
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(100.0f, 900.0f), 0.90f));
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(600.0f, 1800.0f), 2.0f));
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(900.0f, 50.0f), 0.5f));
@@ -154,7 +158,11 @@ void Game::update(double dt)
 			{
 				// Do collision here
 			}
-
+			if (m_player.m_alive == false)
+			{
+				currentGameState = GameState::EndScreen;
+			}
+			checkGoalCollision(m_player, m_goal);
 			break;
 		}
 		case GameState::EndScreen:
@@ -202,7 +210,7 @@ void Game::render()
 			{
 				it->render(m_window);
 			}
-
+			m_goal.render(m_window);
 			m_player.render(m_window);
 		
 			break;
@@ -218,4 +226,18 @@ void Game::render()
 	}
 
 	m_window.display();
+}
+
+void Game::checkGoalCollision(Player player, Goal goal)
+{
+	sf::Vector2f posOne = player.getPosition();
+	sf::Vector2f posTwo = goal.getPosition();
+	float xInFormula = posOne.x - posTwo.x;
+	float yInFormula = posOne.y - posTwo.y;
+	float radii = (player.getSprite().getGlobalBounds().width / 2.f) + goal.getRadius();
+	float distance = std::sqrt((xInFormula) * (xInFormula)+(yInFormula) * (yInFormula));
+	if (radii >= distance)
+	{
+		currentGameState = GameState::EndScreen;
+	}
 }

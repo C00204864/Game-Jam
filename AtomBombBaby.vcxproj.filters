@@ -13,6 +13,7 @@
     <ClCompile Include="XboxController.cpp" />
     <ClCompile Include="FuelPickUp.cpp" />
     <ClCompile Include="Explosion.cpp" />
+    <ClCompile Include="Goal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
@@ -26,5 +27,6 @@
     <ClInclude Include="XboxController.h" />
     <ClInclude Include="FuelPickUp.h" />
     <ClInclude Include="Explosion.h" />
+    <ClInclude Include="Goal.h" />
   </ItemGroup>
 </Project>

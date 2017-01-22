@@ -4,16 +4,19 @@
 
 //Player Default Constructor
 Player::Player() :
+	m_alive(true),
 	m_position(),
 	m_velocity(),
 	m_rotation(0),
 	m_fuelUI(sf::Vector2f(100.0f, 100.0f)),
 	xboxController(CONTROLLER_ONE),
 	deathExplosion("Resources/Player/ExplosionSpriteSheet.png")
+	
 {}
 
 //Player Overloaded constructor !---(THE ONE YOU SHOULD USE)---!
 Player::Player(sf::Vector2f positionIn, sf::Vector2f velocityIn, float rotationIn, std::string filePathIn, sf::Vector2u windowSize): 
+	m_alive(true),
 	m_position(positionIn),
 	m_velocity(velocityIn),
 	m_rotation(rotationIn),
@@ -188,6 +191,7 @@ void Player::reset()
 	m_rotation = 0;
 	m_fuel = 100;
 	playerState = Play;
+	m_alive = true;
 }
 
 void Player::reset(sf::Vector2f positionIn, float rotationIn)
@@ -198,4 +202,5 @@ void Player::reset(sf::Vector2f positionIn, float rotationIn)
 	m_rotation = rotationIn;
 	m_fuel = 100;
 	playerState = Play;
+	m_alive = true;
 }
