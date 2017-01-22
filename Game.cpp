@@ -3,7 +3,7 @@
 #define MS_PER_UPDATE 10.0
 
 Game::Game()
-	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
+	: m_window(sf::VideoMode(3840, 2160, 32), "Global Game Jam", sf::Style::Fullscreen),
 		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
 	, m_splashScreen("Resources/SplashScreen/SplashScreen.png", m_window.getSize().x, m_window.getSize().y),
 	xboxController(CONTROLLER_ONE)
@@ -181,7 +181,7 @@ void Game::update(double dt)
 					m_player.checkCollisionPlanet(it->GetPosition(), it->GetSpriteWidth());
 				}
 			}
-
+			checkGoalCollision(m_player, m_goal);
 			for (std::vector<Planet>::iterator it = m_planets.begin(); it != m_planets.end(); it++)
 			{
 				// Do collision here
