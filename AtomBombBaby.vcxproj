@@ -151,10 +151,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Explosion.cpp" />
+    <ClCompile Include="FuelPickUp.cpp" />
     <ClCompile Include="FuelUI.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameOver.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="HelpScreen.cpp" />
+=======
+    <ClCompile Include="Goal.cpp" />
+>>>>>>> ae623a3019d28ed633659e028cfad85fe8ba0d48
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="OptionsMenu.cpp" />
@@ -165,10 +171,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
+    <ClInclude Include="Explosion.h" />
+    <ClInclude Include="FuelPickUp.h" />
     <ClInclude Include="FuelUI.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameOver.h" />
+<<<<<<< HEAD
     <ClInclude Include="HelpScreen.h" />
+=======
+    <ClInclude Include="Goal.h" />
+>>>>>>> ae623a3019d28ed633659e028cfad85fe8ba0d48
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="OptionsMenu.h" />
     <ClInclude Include="Planet.h" />

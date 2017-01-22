@@ -11,8 +11,14 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Splash.cpp" />
     <ClCompile Include="XboxController.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="OptionsMenu.cpp" />
     <ClCompile Include="HelpScreen.cpp" />
+=======
+    <ClCompile Include="FuelPickUp.cpp" />
+    <ClCompile Include="Explosion.cpp" />
+    <ClCompile Include="Goal.cpp" />
+>>>>>>> ae623a3019d28ed633659e028cfad85fe8ba0d48
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
@@ -24,7 +30,13 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Splash.h" />
     <ClInclude Include="XboxController.h" />
+<<<<<<< HEAD
     <ClInclude Include="OptionsMenu.h" />
     <ClInclude Include="HelpScreen.h" />
+=======
+    <ClInclude Include="FuelPickUp.h" />
+    <ClInclude Include="Explosion.h" />
+    <ClInclude Include="Goal.h" />
+>>>>>>> ae623a3019d28ed633659e028cfad85fe8ba0d48
   </ItemGroup>
 </Project>

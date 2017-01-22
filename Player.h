@@ -7,8 +7,9 @@
 #include <SFML\Graphics.hpp>
 #include "FuelUI.h"
 #include "XboxController.h"
+#include "Explosion.h"
 
-enum PlayerState {Start, Play, None};
+enum PlayerState { Play, Dead };
 
 class Player {
 public:
@@ -17,23 +18,28 @@ public:
 	void update(double dt);
 	void render(sf::RenderWindow &window);
 	sf::Sprite getSprite();
-	void checkGravity(sf::Vector2f planetPosition, float planetMass); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!include planet class and pass in a reference to planet or optionally an array
+	void checkGravity(sf::Vector2f planetPosition, float planetMass);
 	float getDistance(sf::Vector2f, sf::Vector2f);
 	void increaseRotation();
 	void decreaseRotation();
 	float getFuel();
+	sf::Vector2f getPosition();
 	void reset();
 	void reset(sf::Vector2f, float);
+	void checkCollisionPlanet(sf::Vector2f planetPosition, float planetRadius);
+	bool checkCollisionFuelItem(sf::Vector2f planetPosition, float planetRadius);
 	PlayerState playerState;
+	bool m_alive;
 
 private:
 	sf::Vector2f m_position;
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_acceleration;
 	sf::Vector2f thrustVector;
+	float m_radiusOfImpact;
 	bool renderExhaust;
 	float m_rotation;
-	float m_fuel = 100.0f;
+	float m_fuel;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	sf::Texture m_exhaustTexture;
@@ -44,7 +50,7 @@ private:
 	const float DEG_TO_RAD = (3.14f / 180.f);
 	FuelUI m_fuelUI;
 	XboxController xboxController;
-	bool playerAlive;
+	Explosion deathExplosion;
 };
 
 #endif
