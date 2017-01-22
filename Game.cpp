@@ -204,6 +204,12 @@ void Game::update(double dt)
 			{
 				m_window.close();
 			}
+			else if(m_gameOver.restartGame)
+			{
+				currentGameState = GameState::Game;
+				m_gameOver.restartGame = false;
+				m_player.reset();
+			}
 			m_gameOver.update();
 			break;
 		}

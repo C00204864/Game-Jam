@@ -20,6 +20,8 @@ public:
 
 	bool playAgain;
 	bool quitGame();
+
+	bool restartGame;
 	
 protected:
 	const int numButtons = 2;

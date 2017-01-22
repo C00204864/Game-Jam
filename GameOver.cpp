@@ -164,7 +164,7 @@ void GameOver::keyboardInput()
 	{
 		if (currentHighlighted == 0)
 		{
-			//restart Game;
+			restartGame = true;
 		}
 		else
 		{
