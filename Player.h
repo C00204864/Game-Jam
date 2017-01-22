@@ -39,7 +39,7 @@ private:
 	float m_radiusOfImpact;
 	bool renderExhaust;
 	float m_rotation;
-	float m_fuel = 100.0f;
+	float m_fuel;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	sf::Texture m_exhaustTexture;

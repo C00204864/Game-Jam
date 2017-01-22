@@ -30,10 +30,9 @@ Game::Game()
 	}
 
 	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(1400.0f, 400.0f)));
-	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(1400.0f, 600.0f)));
 	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(900.0f, 1400.0f)));
 	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(2000.0f, 200.0f)));
-	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(2200.0f, 600.0f)));
+	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(3400.0f, 900.0f)));
 	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(2400.0f, 1400.0f)));
 }
 

@@ -13,13 +13,14 @@ Player::Player() :
 {}
 
 //Player Overloaded constructor !---(THE ONE YOU SHOULD USE)---!
-Player::Player(sf::Vector2f positionIn, sf::Vector2f velocityIn, float rotationIn, std::string filePathIn, sf::Vector2u windowSize): 
+Player::Player(sf::Vector2f positionIn, sf::Vector2f velocityIn, float rotationIn, std::string filePathIn, sf::Vector2u windowSize) :
 	m_position(positionIn),
 	m_velocity(velocityIn),
 	m_rotation(rotationIn),
 	m_fuelUI(sf::Vector2f(100.0f, windowSize.y - 400.0f)),
 	xboxController(CONTROLLER_ONE),
-	deathExplosion("Resources/Player/ExplosionSpriteSheet.png")
+	deathExplosion("Resources/Player/ExplosionSpriteSheet.png"),
+	m_fuel(50.0f)
 {
 	m_texture.loadFromFile(filePathIn);
 	m_sprite.setTexture(m_texture);
@@ -64,7 +65,7 @@ void Player::update(double timeSinceLastUpdate)
 			thrustVector.x = std::cos(m_rotation * DEG_TO_RAD) * THRUST_PER_SECOND;
 			thrustVector.y = std::sin(m_rotation * DEG_TO_RAD) * THRUST_PER_SECOND; 
 			m_velocity += thrustVector * secondsSinceLastUpdate;
-			m_fuel -= 20 * secondsSinceLastUpdate;
+			m_fuel -= 50 * secondsSinceLastUpdate;
 			renderExhaust = true;
 		}
 		else
