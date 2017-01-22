@@ -46,3 +46,8 @@ void Planet::render(sf::RenderWindow &window)
 {
 	window.draw(m_planetSprite);
 }
+
+float Planet::GetSpriteWidth()
+{
+	return (((m_planetSprite.getGlobalBounds().width) / 2.f));
+}

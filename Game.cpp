@@ -3,19 +3,9 @@
 #define MS_PER_UPDATE 10.0
 
 Game::Game()
-<<<<<<< HEAD
-//<<<<<<< HEAD
-	: m_window(sf::VideoMode(3840, 2160, 32), "Global Game Jam", sf::Style::Fullscreen),
-		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 90, "Resources/sprite.png", m_window.getSize())
-//=======
-//	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
-//		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
-//>>>>>>> f21abafabd34026241962059ccac502f87a44858
-=======
 	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
 		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
 	, m_splashScreen("Resources/SplashScreen/SplashScreen.png", m_window.getSize().x, m_window.getSize().y)
->>>>>>> 6fae90d91d56a7d87ff1d21669f4e077abd82079
 {
 	if (!m_planetTexture.loadFromFile("Resources/Planets/Planet_11.png"))
 	{
@@ -31,6 +21,16 @@ Game::Game()
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(2500.0f, 800.0f), 1.2f));
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(3400.0f, 800.0f), 2.5f));
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(3200.0f, 1500.0f), 1.0f));
+
+
+	if (!m_fuelTexture.loadFromFile("Resources/Items/fuel.png"))
+	{
+		std::cout << "GAME:: Fuel item texture not loaded" << std::endl;
+	}
+
+	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(1400.0f, 400.0f)));
+	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(1400.0f, 600.0f)));
+	fuelPickUpItems.push_back(FuelPickUp(m_fuelTexture, sf::Vector2f(900.0f, 1400.0f)));
 }
 
 void Game::run()
@@ -75,6 +75,11 @@ void Game::processGameEvents(sf::Event& event)
 		m_window.close();
 	}
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+	{
+		m_player.reset();
+	}
+
 	switch (currentGameState)
 	{
 		case GameState::EndScreen:
@@ -83,6 +88,8 @@ void Game::processGameEvents(sf::Event& event)
 			{
 				m_gameOver.screenFadeIn();
 			}
+
+			
 		}
 	}
 }
@@ -120,9 +127,27 @@ void Game::update(double dt)
 		{
 			m_player.update(dt);
 
+			int i = 0;
+			for (std::vector<FuelPickUp>::iterator it = fuelPickUpItems.begin(); it != fuelPickUpItems.end(); it++)
+			{
+				it->update(m_player.getPosition());
+
+				if (it->isCollided())
+				{
+					it->fuelPosition = sf::Vector2f();
+				}
+
+				i++;
+			}
+
 			for (std::vector<Planet>::iterator it = m_planets.begin(); it != m_planets.end(); it++)
 			{
 				m_player.checkGravity(it->GetPosition(), it->GetMass());
+				
+				if (m_player.playerState != Dead)
+				{
+					m_player.checkCollision(it->GetPosition(), it->GetSpriteWidth());
+				}
 			}
 
 			for (std::vector<Planet>::iterator it = m_planets.begin(); it != m_planets.end(); it++)
@@ -169,6 +194,11 @@ void Game::render()
 			m_background.render(m_window);
 
 			for (std::vector<Planet>::iterator it = m_planets.begin(); it != m_planets.end(); it++)
+			{
+				it->render(m_window);
+			}
+
+			for (std::vector<FuelPickUp>::iterator it = fuelPickUpItems.begin(); it != fuelPickUpItems.end(); it++)
 			{
 				it->render(m_window);
 			}

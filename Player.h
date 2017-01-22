@@ -7,8 +7,9 @@
 #include <SFML\Graphics.hpp>
 #include "FuelUI.h"
 #include "XboxController.h"
+#include "Explosion.h"
 
-enum PlayerState {Start, Play, None};
+enum PlayerState { Play, Dead };
 
 class Player {
 public:
@@ -22,15 +23,19 @@ public:
 	void increaseRotation();
 	void decreaseRotation();
 	float getFuel();
+	sf::Vector2f getPosition();
 	void reset();
 	void reset(sf::Vector2f, float);
+	void checkCollision(sf::Vector2f planetPosition, float planetRadius);
 	PlayerState playerState;
+	bool m_alive;
 
 private:
 	sf::Vector2f m_position;
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_acceleration;
 	sf::Vector2f thrustVector;
+	float m_radiusOfImpact;
 	bool renderExhaust;
 	float m_rotation;
 	float m_fuel = 100.0f;
@@ -44,7 +49,7 @@ private:
 	const float DEG_TO_RAD = (3.14f / 180.f);
 	FuelUI m_fuelUI;
 	XboxController xboxController;
-	bool playerAlive;
+	Explosion deathExplosion;
 };
 
 #endif

@@ -15,6 +15,7 @@ public:
 	sf::Vector2f GetPosition();
 	float GetRadius();
 	float GetMass();
+	float GetSpriteWidth();
 
 private:
 	sf::Texture &m_planetTexture;

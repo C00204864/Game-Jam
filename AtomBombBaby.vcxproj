@@ -151,6 +151,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Explosion.cpp" />
+    <ClCompile Include="FuelPickUp.cpp" />
     <ClCompile Include="FuelUI.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameOver.cpp" />
@@ -163,6 +165,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
+    <ClInclude Include="Explosion.h" />
+    <ClInclude Include="FuelPickUp.h" />
     <ClInclude Include="FuelUI.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameOver.h" />
