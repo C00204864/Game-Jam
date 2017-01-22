@@ -15,12 +15,8 @@ Player::Player() :
 {}
 
 //Player Overloaded constructor !---(THE ONE YOU SHOULD USE)---!
-<<<<<<< HEAD
 Player::Player(sf::Vector2f positionIn, sf::Vector2f velocityIn, float rotationIn, std::string filePathIn, sf::Vector2u windowSize): 
 	m_alive(true),
-=======
-Player::Player(sf::Vector2f positionIn, sf::Vector2f velocityIn, float rotationIn, std::string filePathIn, sf::Vector2u windowSize) :
->>>>>>> b8d9d14f84867aa4858a413972aba3e0107dcc0f
 	m_position(positionIn),
 	m_velocity(velocityIn),
 	m_rotation(rotationIn),
