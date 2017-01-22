@@ -16,7 +16,7 @@ Game::Game()
 	{
 		std::cout << "GAME:: Goal texture not loaded" << std::endl;
 	}
-	m_goal.init(m_goalTexture, sf::Vector2f(3000, 1500));
+	m_goal.init(m_goalTexture, sf::Vector2f(3400, 1900));
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(100.0f, 900.0f), 0.90f));
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(600.0f, 1800.0f), 2.0f));
 	m_planets.push_back(Planet(m_planetTexture, sf::Vector2f(900.0f, 50.0f), 0.5f));
