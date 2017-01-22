@@ -3,26 +3,10 @@
 #define MS_PER_UPDATE 10.0
 
 Game::Game()
-<<<<<<< HEAD
-//<<<<<<< HEAD
-//<<<<<<< HEAD
-//	: m_window(sf::VideoMode(3840, 2160, 32), "Global Game Jam", sf::Style::Fullscreen),
-//		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 90, "Resources/sprite.png", m_window.getSize())
-//=======
-//	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
-//		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
-//>>>>>>> f21abafabd34026241962059ccac502f87a44858
-//=======
-	: m_window(sf::VideoMode(3840, 2160, 32), "Global Game Jam", sf::Style::Fullscreen),
-		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
-	, m_splashScreen("Resources/SplashScreen/SplashScreen.png", m_window.getSize().x, m_window.getSize().y)
-//>>>>>>> 6fae90d91d56a7d87ff1d21669f4e077abd82079
-=======
 	: m_window(sf::VideoMode(1440, 900, 32), "Global Game Jam", sf::Style::Fullscreen),
 		m_player(sf::Vector2f(400, 400), sf::Vector2f(0, 0), 0.0f, "Resources/Player/SpaceShip.png", m_window.getSize())
 	, m_splashScreen("Resources/SplashScreen/SplashScreen.png", m_window.getSize().x, m_window.getSize().y),
 	xboxController(CONTROLLER_ONE)
->>>>>>> ae623a3019d28ed633659e028cfad85fe8ba0d48
 {
 	if (!m_planetTexture.loadFromFile("Resources/Planets/Planet_11.png"))
 	{
@@ -202,19 +186,16 @@ void Game::update(double dt)
 			{
 				// Do collision here
 			}
-<<<<<<< HEAD
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::End))
 			{
 				currentGameState = GameState::EndScreen;
 			}
 
-=======
 			if (m_player.m_alive == false)
 			{
 				currentGameState = GameState::EndScreen;
 			}
-			checkGoalCollision(m_player, m_goal);
->>>>>>> ae623a3019d28ed633659e028cfad85fe8ba0d48
+
 			break;
 		}
 		case GameState::EndScreen:
